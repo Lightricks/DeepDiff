@@ -37,6 +37,28 @@ public extension UICollectionView {
     outsideUpdate(changesWithIndexPath: changesWithIndexPath)
   }
   
+  /// Animate reload sections in a batch update
+  ///
+  /// - Parameters:
+  ///   - changes: The changes from diff
+  ///   - updateData: Update your data source model
+  ///   - completion: Called when operation completes
+  func reloadSections<T: DiffAware>(
+    changes: [Change<T>],
+    updateData: () -> Void,
+    completion: ((Bool) -> Void)? = nil) {
+    
+    performBatchUpdates({
+      updateData()
+      insideUpdateSection(changes: changes)
+    }, completion: { finished in
+      completion?(finished)
+    })
+    
+    // reloadRows needs to be called outside the batch
+    outsideUpdateSection(changes: changes)
+  }
+  
   // MARK: - Helper
   
   private func insideUpdate(changesWithIndexPath: ChangeWithIndexPath) {
@@ -55,10 +77,29 @@ public extension UICollectionView {
     }
   }
 
+  private func insideUpdateSection<T>(changes: [Change<T>]) {
+    
+    let deleteIndices = IndexSet(changes.compactMap { $0.delete?.index } )
+    self.deleteSections(deleteIndices)
+    
+    let insertIndices = IndexSet(changes.compactMap({ $0.insert?.index }))
+    self.insertSections(insertIndices)
+    
+    let moveIndexPaths = changes.filter { $0.move != nil }.map { (fromIndex: $0.move!.fromIndex, toIndex: $0.move!.toIndex) }
+    moveIndexPaths.forEach { move in
+      self.moveSection(move.fromIndex, toSection: move.toIndex)
+    }
+  }
+  
   private func outsideUpdate(changesWithIndexPath: ChangeWithIndexPath) {
     changesWithIndexPath.replaces.executeIfPresent {
       self.reloadItems(at: $0)
     }
+  }
+  
+  private func outsideUpdateSection<T>(changes: [Change<T>]) {
+    let replaceIndices = IndexSet(changes.compactMap { $0.replace?.index })
+    self.reloadSections(replaceIndices)
   }
 }
 #endif
