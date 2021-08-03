@@ -1,5 +1,16 @@
 # DeepDiff
 
+❤️ Support my apps ❤️ 
+
+- [Push Hero - pure Swift native macOS application to test push notifications](https://onmyway133.com/pushhero)
+- [PastePal - Pasteboard, note and shortcut manager](https://onmyway133.com/pastepal)
+- [Quick Check - smart todo manager](https://onmyway133.com/quickcheck)
+- [Alias - App and file shortcut manager](https://onmyway133.com/alias)
+- [My other apps](https://onmyway133.com/apps/)
+
+❤️❤️😇😍🤘❤️❤️
+
+
 [![CI Status](https://img.shields.io/circleci/project/github/onmyway133/DeepDiff.svg)](https://circleci.com/gh/onmyway133/DeepDiff)
 [![Version](https://img.shields.io/cocoapods/v/DeepDiff.svg?style=flat)](http://cocoadocs.org/docsets/DeepDiff)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -12,6 +23,7 @@
 **DeepDiff** tells the difference between 2 collections and the changes as edit steps. It also supports [Texture](https://github.com/TextureGroup/Texture), see [Texture example](https://github.com/onmyway133/DeepDiff/tree/master/Example/DeepDiffTexture)
 
 - Read more [A better way to update UICollectionView data in Swift with diff framework](https://medium.com/flawless-app-stories/a-better-way-to-update-uicollectionview-data-in-swift-with-diff-framework-924db158db86)
+- Checkout [Micro](https://github.com/onmyway133/Micro) Fast diffing and type safe SwiftUI style data source for UICollectionView
 
 <div align = "center">
 <img src="Screenshots/table.gif" width="" height="400" />
